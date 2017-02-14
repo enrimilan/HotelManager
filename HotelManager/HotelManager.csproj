@@ -38,13 +38,13 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Entity\Room.cs" />
+    <Compile Include="Service\Impl\RoomServiceImpl.cs" />
+    <Compile Include="Service\RoomService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Service\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
