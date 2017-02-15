@@ -1,26 +1,41 @@
 ﻿using System;
+using System.Collections.Generic;
 using HotelManager.Entity;
+using HotelManager.Dao;
 
 namespace HotelManager.Service.Impl
 {
-    class RoomServiceImpl : RoomService
+    public class RoomServiceImpl : RoomService
     {
-        public Room create(Room room)
+
+        private RoomDao roomDao;
+
+        public RoomServiceImpl(RoomDao roomDao)
+        {
+            this.roomDao = roomDao;
+        }
+
+        public Room Create(Room room)
         {
             throw new NotImplementedException();
         }
 
-        public Room delete(int id)
+        public Room Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void edit(Room room)
+        public void Edit(Room room)
         {
             throw new NotImplementedException();
         }
 
-        public Room getRoom(int id)
+        public List<Room> FindAllRooms()
+        {
+            return roomDao.FindAll();
+        }
+
+        public Room GetRoom(int id)
         {
             throw new NotImplementedException();
         }

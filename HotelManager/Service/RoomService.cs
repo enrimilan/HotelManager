@@ -1,14 +1,16 @@
 ﻿using HotelManager.Entity;
+using System.Collections.Generic;
 
 namespace HotelManager.Service
 {
-    interface RoomService
+    public interface RoomService
     {
 
-        Room create(Room room);
-        Room getRoom(int id);
-        void edit(Room room);
-        Room delete(int id);
-
+        Room Create(Room room);
+        Room GetRoom(int id);
+        void Edit(Room room);
+        Room Delete(int id);
+        List<Room> FindAllRooms();
+        
     }
 }

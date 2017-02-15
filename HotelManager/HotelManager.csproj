@@ -34,17 +34,31 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Database\hotel.s3db" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Dao\Impl\DbConnection.cs" />
+    <Compile Include="Dao\Impl\RoomDaoImpl.cs" />
+    <Compile Include="Dao\Impl\SQLiteDao.cs" />
+    <Compile Include="Dao\RoomDao.cs" />
     <Compile Include="Entity\Room.cs" />
     <Compile Include="Service\Impl\RoomServiceImpl.cs" />
     <Compile Include="Service\RoomService.cs" />
+    <Compile Include="Service\ServiceFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\System.Data.SQLite.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="Library\System.Data.SQLite.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
