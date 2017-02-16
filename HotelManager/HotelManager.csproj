@@ -37,25 +37,78 @@
     <None Include="Database\hotel.s3db" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dao\Impl\DbConnection.cs" />
     <Compile Include="Dao\Impl\RoomDaoImpl.cs" />
     <Compile Include="Dao\Impl\SQLiteDao.cs" />
     <Compile Include="Dao\RoomDao.cs" />
     <Compile Include="Entity\Room.cs" />
+    <Compile Include="Gui\CanceledReservations.xaml.cs">
+      <DependentUpon>CanceledReservations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Main.xaml.cs">
+      <DependentUpon>Main.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\OldRooms.xaml.cs">
+      <DependentUpon>OldRooms.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Reservations.xaml.cs">
+      <DependentUpon>Reservations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Rooms.xaml.cs">
+      <DependentUpon>Rooms.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Service\Impl\RoomServiceImpl.cs" />
     <Compile Include="Service\RoomService.cs" />
     <Compile Include="Service\ServiceFactory.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Library\System.Data.SQLite.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.XML" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Page Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\CanceledReservations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\Main.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\OldRooms.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\Reservations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\Rooms.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\Style\Resources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Library\System.Data.SQLite.dll" />
   </ItemGroup>
