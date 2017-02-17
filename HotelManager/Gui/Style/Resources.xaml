@@ -9,6 +9,8 @@
     <SolidColorBrush x:Key="CloseButtonPressedBrush" Color="#8b0000"/>
     <SolidColorBrush x:Key="SubMenuBrush" Color="#F0F0F0"/>
     <SolidColorBrush x:Key="SubMenuHighlightedBrush" Color="#91c9F7"/>
+    <SolidColorBrush x:Key="ContentBrush" Color="#181818"/>
+
 
     <!--Styles-->
     <Style TargetType="Menu">
@@ -512,7 +514,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="IsEnabled" Value="False"/>
-        
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="GridViewColumnHeader">
@@ -541,35 +543,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Style TargetType="ListViewItem">
-        <Setter Property="Height" Value="30"/>
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ListViewItem}">
-
-                    <Border
-                                     BorderBrush="LightGray"
-                                     BorderThickness="0, 0.2, 0, 0"
-                                     Background="{TemplateBinding Background}">
-                        <GridViewRowPresenter HorizontalAlignment="Stretch" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="Auto" Margin="0"/>
-                        
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="{StaticResource MouseOverBrush}"/>
-            </Trigger>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource PressedBrush}"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
 
 </ResourceDictionary>
