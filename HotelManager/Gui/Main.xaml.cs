@@ -19,6 +19,8 @@ namespace HotelManager.Gui
         public Main()
         {
             InitializeComponent();
+            MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+            MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
             item1.MouseLeftButtonDown += new MouseButtonEventHandler(item1_MouseLeftButtonDown);
             item2.MouseLeftButtonDown += new MouseButtonEventHandler(item2_MouseLeftButtonDown);
             item3.MouseLeftButtonDown += new MouseButtonEventHandler(item3_MouseLeftButtonDown);
