@@ -7,7 +7,8 @@
              mc:Ignorable="d"
              WindowStartupLocation="CenterOwner"
              ResizeMode="NoResize"
-             WindowStyle="None" Width="338.537" Height="79.512">
+             WindowStyle="None" Width="340" Height="90">
+    
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -16,19 +17,15 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <DockPanel Margin="0,0,-0.6,0.2">
-        <Grid Name="TitleBar" MouseDown="MouseDown" Background="{StaticResource PressedBrush}" Height="20" DockPanel.Dock="Top">
-
+    <DockPanel Background="{StaticResource PressedBrush}"  MouseDown="MouseDown" Margin="0,0,-0.6,0.2">
+        <Grid Name="TitleBar"  Height="30" DockPanel.Dock="Top">
+            <TextBlock x:Name="Title" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"></TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Button x:Name="CloseButton" Content="r" Style="{StaticResource WindowCloseButtonStyle}" Click="CloseButton_Click"/>
             </StackPanel>
         </Grid>
-        <Grid Background="{StaticResource ContentBrush}" Margin="0,0,0.2,-0.2" DockPanel.Dock="Top" Height="50">
-            <TextBlock x:Name="Message" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White">Message</TextBlock>
-        </Grid>
-        <Grid Background="{StaticResource PressedBrush}" Height="10" DockPanel.Dock="Bottom">
-
-
+        <Grid DockPanel.Dock="Top" Height="57">
+            <TextBlock x:Name="Message" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource LabelBrush}" >Message</TextBlock>
         </Grid>
     </DockPanel>
 </Window>

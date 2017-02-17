@@ -46,5 +46,10 @@ namespace HotelManager.Gui.Dialog
         {
             Message.Text = message;
         }
+
+        public void setTitle(string title)
+        {
+            Title.Text = title;
+        }
     }
 }

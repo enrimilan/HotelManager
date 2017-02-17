@@ -149,6 +149,7 @@ namespace HotelManager.Gui
         {
             MessageDialog messageDialog = new MessageDialog();
             messageDialog.Owner = Application.Current.MainWindow;
+            messageDialog.setTitle("About Hotel Manager");
             messageDialog.setMessage("Hotel Manager \n   Version 1.0 \n        2017");
             messageDialog.ShowDialog();
         }
