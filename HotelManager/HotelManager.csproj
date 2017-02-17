@@ -48,6 +48,9 @@
     <Compile Include="Gui\CanceledReservations.xaml.cs">
       <DependentUpon>CanceledReservations.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Gui\Dialog\MessageDialog.xaml.cs">
+      <DependentUpon>MessageDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Gui\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
@@ -85,6 +88,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Gui\CanceledReservations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\Dialog\MessageDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
