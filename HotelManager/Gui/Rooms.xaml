@@ -6,7 +6,67 @@
              xmlns:local="clr-namespace:HotelManager.Gui"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="#181818">
-        <TextBlock Foreground="White">Rooms</TextBlock>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style/Resources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid Background="{StaticResource ContentBrush}">
+        <ListView Padding="20, 0, 0, 0" BorderThickness="0" Background="{StaticResource ContentBrush}" Margin="10" Name="roomList">
+
+            <ListView.Resources>
+                <ContextMenu x:Key="ItemContextMenu">
+                    <MenuItem Header="Remove" Click="MenuItemDelete_Click" Command="{Binding Path=DataContext.MoreInfo, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" />
+                </ContextMenu>
+            </ListView.Resources>
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+
+                                <Border
+                                     BorderBrush="LightGray"
+                                     BorderThickness="0, 0.2, 0, 0"
+                                     Background="{TemplateBinding Background}">
+                                    <GridViewRowPresenter HorizontalAlignment="Stretch" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="Auto" Margin="0"/>
+
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{StaticResource MouseOverBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource PressedBrush}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.View>
+                <GridView ColumnHeaderContainerStyle="{DynamicResource GridViewColumnHeaderStyle}">
+                    <GridViewColumn Header="Number" Width="150" DisplayMemberBinding="{Binding Number}" />
+                    <GridViewColumn Header="Status" Width="150" DisplayMemberBinding="{Binding Status}" />
+                    <GridViewColumn Header="Reservations" Width="150" DisplayMemberBinding="{Binding Reservations}" />
+                    <GridViewColumn Header="Next reservation" Width="200" DisplayMemberBinding="{Binding NextReservation}" />
+                    <GridViewColumn Header="Created" Width="200" DisplayMemberBinding="{Binding CreationDate}" />
+                </GridView>
+            </ListView.View>
+            
+        </ListView>
+
     </Grid>
 </UserControl>
