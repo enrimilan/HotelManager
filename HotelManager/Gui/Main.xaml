@@ -29,13 +29,12 @@
          
         <Menu DockPanel.Dock="Top">
             <MenuItem Foreground="White" Header="_File">
-                <MenuItem Foreground="Black" Header="_New room..." />
-                <MenuItem Foreground="Black" Header="_New reservation..." />
+                <MenuItem Foreground="Black" Header="_New room..." Click="FileNewRoom_Click" />
                 <Separator />
-                <MenuItem Foreground="Black" Header="_Exit" />
+                <MenuItem Foreground="Black" Header="_Exit" Click="FileExit_Click"/>
             </MenuItem>
             <MenuItem Foreground="White" Header="_Help">
-                <MenuItem Foreground="Black" Header="_About" />
+                <MenuItem Foreground="Black" Header="_About" Click="HelpAbout_Click" />
             </MenuItem>
         </Menu>
 

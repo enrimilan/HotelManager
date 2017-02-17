@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HotelManager.Gui.Dialog;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -129,6 +130,25 @@ namespace HotelManager.Gui
                 MaximizeButton.Content = "2";
             }
 
+        }
+
+        private void FileNewRoom_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO
+        }
+
+        private void FileExit_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO need to close db n stuff here
+            Application.Current.Shutdown();
+        }
+
+        private void HelpAbout_Click(object sender, RoutedEventArgs e)
+        {
+            MessageDialog messageDialog = new MessageDialog();
+            messageDialog.Owner = Application.Current.MainWindow;
+            messageDialog.setMessage("Hotel Manager \n   Version 1.0 \n        2017");
+            messageDialog.ShowDialog();
         }
     }
 }
