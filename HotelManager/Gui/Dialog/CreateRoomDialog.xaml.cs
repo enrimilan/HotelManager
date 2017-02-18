@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HotelManager.Gui.Dialog
@@ -8,6 +9,9 @@ namespace HotelManager.Gui.Dialog
     /// </summary>
     public partial class CreateRoomDialog : Window
     {
+
+        public bool Create = false;
+
         public CreateRoomDialog()
         {
             InitializeComponent();
@@ -21,6 +25,15 @@ namespace HotelManager.Gui.Dialog
             this.Close();
         }
 
+        /// <summary>
+        /// CreateButton_Clicked
+        /// </summary>
+        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        {
+            Create = true;
+            this.Close();
+        }
+
         private void MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -28,5 +41,6 @@ namespace HotelManager.Gui.Dialog
                 this.DragMove();
             }
         }
+
     }
 }
