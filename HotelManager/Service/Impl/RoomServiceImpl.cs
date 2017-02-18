@@ -15,9 +15,9 @@ namespace HotelManager.Service.Impl
             this.roomDao = roomDao;
         }
 
-        public Room Create(Room room)
+        public void Create(Room room)
         {
-            throw new NotImplementedException();
+            roomDao.Save(room);
         }
 
         public Room Delete(int id)
