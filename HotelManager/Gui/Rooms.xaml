@@ -18,7 +18,7 @@
 
     <Grid Background="{StaticResource ContentBrush}">
 
-        <Button x:Name="createButton" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="30" Height="25" Width="100" Content="NEW ROOM" Style="{StaticResource ConfirmationButtonStyle}" />
+        <Button x:Name="createButton" Click="createButton_Click" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="30" Height="25" Width="100" Content="NEW ROOM" Style="{StaticResource ConfirmationButtonStyle}" />
 
         <local:SearchBox x:Name="searchBox" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="200" Margin="30,60,0,0"></local:SearchBox>
 

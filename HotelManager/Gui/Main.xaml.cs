@@ -1,4 +1,6 @@
-﻿using HotelManager.Gui.Dialog;
+﻿using HotelManager.Entity;
+using HotelManager.Gui.Dialog;
+using HotelManager.Service;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -15,6 +17,7 @@ namespace HotelManager.Gui
     {
 
         private List<Label> items = new List<Label>();
+        private RoomService roomService = ServiceFactory.GetRoomService();
 
         public Main()
         {
@@ -139,6 +142,38 @@ namespace HotelManager.Gui
             CreateRoomDialog createRoomDialog = new CreateRoomDialog();
             createRoomDialog.Owner = Application.Current.MainWindow;
             createRoomDialog.ShowDialog();
+
+            if(createRoomDialog.Create)
+            {
+                MessageDialog messageDialog = new MessageDialog();
+                messageDialog.Owner = Application.Current.MainWindow;
+                
+                if (createRoomDialog.UserInput.Text.Equals(""))
+                {
+                    messageDialog.setTitle("Error");
+                    messageDialog.setMessage("Room number can't be empty!");
+                    messageDialog.ShowDialog();
+                    return;
+                }
+
+                if(roomService.FindRoom(createRoomDialog.UserInput.Text).Count > 0)
+                {
+                    messageDialog.setTitle("Error");
+                    messageDialog.setMessage(createRoomDialog.UserInput.Text + " already exists!");
+                    messageDialog.ShowDialog();
+                    return;
+                }
+                roomService.Create(new Room(createRoomDialog.UserInput.Text));
+                UserControl userControl = (UserControl)container.Content;
+                if (userControl is Rooms)
+                {
+                    Rooms rooms = userControl as Rooms;
+                    rooms.Refresh();
+                }
+                
+                messageDialog.setMessage("Created " + createRoomDialog.UserInput.Text);
+                messageDialog.ShowDialog();
+            }
 
         }
 
