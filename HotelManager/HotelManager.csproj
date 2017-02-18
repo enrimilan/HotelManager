@@ -40,6 +40,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Async\AbortableBackgroundWorker.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Dao\Impl\DbConnection.cs" />
     <Compile Include="Dao\Impl\RoomDaoImpl.cs" />
     <Compile Include="Dao\Impl\SQLiteDao.cs" />
@@ -47,6 +50,9 @@
     <Compile Include="Entity\Room.cs" />
     <Compile Include="Gui\CanceledReservations.xaml.cs">
       <DependentUpon>CanceledReservations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Component\SearchBox.xaml.cs">
+      <DependentUpon>SearchBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gui\Dialog\CreateRoomDialog.xaml.cs">
       <DependentUpon>CreateRoomDialog.xaml</DependentUpon>
@@ -94,6 +100,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Gui\Component\SearchBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Gui\Dialog\CreateRoomDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -128,8 +138,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Gui\Images\search.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Library\System.Data.SQLite.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
