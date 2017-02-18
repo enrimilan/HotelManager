@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace HotelManager.Async
 {
@@ -27,7 +22,6 @@ namespace HotelManager.Async
             }
         }
 
-
         public void Abort()
         {
             if (workerThread != null)
@@ -36,5 +30,6 @@ namespace HotelManager.Async
                 workerThread = null;
             }
         }
+
     }
 }
