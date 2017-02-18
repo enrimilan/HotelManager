@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HotelManager.Gui"
+             xmlns:local="clr-namespace:HotelManager.Gui.Component"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
@@ -11,13 +11,22 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Style/Resources.xaml"/>
+                <ResourceDictionary Source="Style/CircualProgressBar.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid Background="{StaticResource ContentBrush}">
-        <Button VerticalAlignment="Top"  HorizontalAlignment="Right" Margin="30"  Height="25" Width="100" Content="CREATE ROOM" Style="{StaticResource ConfirmationButtonStyle}" ></Button>
-        <ListView Padding="20, 0, 0, 0" BorderThickness="0" Background="{StaticResource ContentBrush}" Margin="10,98,10,10" Name="roomList">
+
+        <Button x:Name="createButton" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="30" Height="25" Width="100" Content="CREATE ROOM" Style="{StaticResource ConfirmationButtonStyle}" />
+
+        <local:SearchBox x:Name="searchBox" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="200" Margin="30,60,0,0"></local:SearchBox>
+
+        <TextBlock x:Name="noRoomsMessage" Visibility="Hidden" Foreground="White" FontSize="25px" HorizontalAlignment="Center" VerticalAlignment="Center">No rooms.</TextBlock>
+        
+        <ContentControl x:Name="circualProgessBar" ContentTemplate="{StaticResource CircularProgressBar}" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center"/>
+
+        <ListView Visibility="Hidden" Padding="20, 0, 0, 0" BorderThickness="0" Background="{StaticResource ContentBrush}" Margin="10,98,10,10" x:Name="roomList">
 
             <ListView.Resources>
                 <ContextMenu x:Key="ItemContextMenu">
@@ -70,4 +79,5 @@
         </ListView>
 
     </Grid>
+    
 </UserControl>
