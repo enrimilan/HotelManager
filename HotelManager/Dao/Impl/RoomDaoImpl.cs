@@ -6,11 +6,10 @@ namespace HotelManager.Dao.Impl
 {
     public class RoomDaoImpl : SQLiteDao, RoomDao
     {
-
-        public List<Room> FindAll()
+        public List<Room> Find(string query)
         {
             List<Room> rooms = new List<Room>();
-            DataTable dt = ExecuteSql("SELECT * FROM rooms");
+            DataTable dt = ExecuteSql("SELECT * FROM rooms WHERE number LIKE '%" + query + "%'");
             foreach (DataRow row in dt.Rows)
             {
                 Room room = new Room((string)row["number"]);
@@ -19,6 +18,11 @@ namespace HotelManager.Dao.Impl
             }
 
             return rooms;
+        }
+
+        public List<Room> FindAll()
+        {
+            return Find("");
         }
     }
 }

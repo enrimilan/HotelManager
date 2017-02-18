@@ -35,6 +35,11 @@ namespace HotelManager.Service.Impl
             return roomDao.FindAll();
         }
 
+        public List<Room> FindRoom(string query)
+        {
+            return roomDao.Find(query);
+        }
+
         public Room GetRoom(int id)
         {
             throw new NotImplementedException();

@@ -6,5 +6,7 @@ namespace HotelManager.Dao
     public interface RoomDao
     {
         List<Room> FindAll();
+
+        List<Room> Find(string query);
     }
 }
