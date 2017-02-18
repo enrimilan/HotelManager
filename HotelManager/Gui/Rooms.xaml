@@ -14,9 +14,10 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    
+
     <Grid Background="{StaticResource ContentBrush}">
-        <ListView Padding="20, 0, 0, 0" BorderThickness="0" Background="{StaticResource ContentBrush}" Margin="10" Name="roomList">
+        <Button VerticalAlignment="Top"  HorizontalAlignment="Right" Margin="30"  Height="25" Width="100" Content="CREATE ROOM" Style="{StaticResource ConfirmationButtonStyle}" ></Button>
+        <ListView Padding="20, 0, 0, 0" BorderThickness="0" Background="{StaticResource ContentBrush}" Margin="10,98,10,10" Name="roomList">
 
             <ListView.Resources>
                 <ContextMenu x:Key="ItemContextMenu">

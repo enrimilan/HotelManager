@@ -136,7 +136,10 @@ namespace HotelManager.Gui
 
         private void FileNewRoom_Click(object sender, RoutedEventArgs e)
         {
-            //TODO
+            CreateRoomDialog createRoomDialog = new CreateRoomDialog();
+            createRoomDialog.Owner = Application.Current.MainWindow;
+            createRoomDialog.ShowDialog();
+
         }
 
         private void FileExit_Click(object sender, RoutedEventArgs e)
