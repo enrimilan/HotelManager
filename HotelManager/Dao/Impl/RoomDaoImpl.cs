@@ -6,6 +6,12 @@ namespace HotelManager.Dao.Impl
 {
     public class RoomDaoImpl : SQLiteDao, RoomDao
     {
+
+        public void Save(Room room)
+        {
+            ExecuteSql("INSERT INTO rooms(NUMBER) VALUES ('"+room.Number+"')");
+        }
+
         public List<Room> Find(string query)
         {
             List<Room> rooms = new List<Room>();
@@ -24,5 +30,6 @@ namespace HotelManager.Dao.Impl
         {
             return Find("");
         }
+
     }
 }
