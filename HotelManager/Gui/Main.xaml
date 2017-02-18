@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:HotelManager.Gui"
         mc:Ignorable="d"
         WindowStyle="None"
-        Title="Main" Height="600" Width="600">
+        Title="Main" Height="600" Width="1200">
 
     <Window.Resources>
         <ResourceDictionary>
