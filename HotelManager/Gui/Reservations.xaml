@@ -3,10 +3,78 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HotelManager.Gui"
+             xmlns:local="clr-namespace:HotelManager.Gui.Component"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="#181818">
-        <TextBlock Foreground="White">Reservations</TextBlock>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style/Resources.xaml"/>
+                <ResourceDictionary Source="Style/CircualProgressBar.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Background="{StaticResource ContentBrush}">
+
+        <local:SearchBox x:Name="searchBox" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="200" Margin="30,60,0,0"></local:SearchBox>
+
+        <TextBlock x:Name="noReservationsMessage" Visibility="Hidden" Foreground="White" FontSize="25px" HorizontalAlignment="Center" VerticalAlignment="Center">No reservations.</TextBlock>
+
+        <ContentControl x:Name="circualProgessBar" ContentTemplate="{StaticResource CircularProgressBar}" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center"/>
+
+        <ListView ContextMenuOpening="HandlerForCMO" Visibility="Hidden" Padding="20, 0, 0, 0" BorderThickness="0" Background="{StaticResource ContentBrush}" Margin="10,98,10,10" x:Name="reservationList">
+
+            <ListView.ContextMenu>
+                <ContextMenu/>
+            </ListView.ContextMenu>
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+
+                                <Border
+                                     BorderBrush="LightGray"
+                                     BorderThickness="0, 0.2, 0, 0"
+                                     Background="{TemplateBinding Background}">
+                                    <GridViewRowPresenter HorizontalAlignment="Stretch" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="Auto" Margin="0"/>
+
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{StaticResource MouseOverBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource PressedBrush}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.View>
+                <GridView ColumnHeaderContainerStyle="{DynamicResource GridViewColumnHeaderStyle}">
+                    <GridViewColumn Header="From" Width="150" DisplayMemberBinding="{Binding FromDateString}" />
+                    <GridViewColumn Header="To" Width="150" DisplayMemberBinding="{Binding ToDateString}" />
+                    <GridViewColumn Header="Room" Width="150" DisplayMemberBinding="{Binding RoomString}" />
+                    <GridViewColumn Header="Status" Width="200" DisplayMemberBinding="{Binding Status}" />
+                    <GridViewColumn Header="Person" Width="150" DisplayMemberBinding="{Binding Person}" />
+                    <GridViewColumn Header="Contact" Width="150" DisplayMemberBinding="{Binding Contact}" />
+                    <GridViewColumn Header="Created" Width="150" DisplayMemberBinding="{Binding CreationDateString}" />
+                </GridView>
+            </ListView.View>
+
+        </ListView>
+
     </Grid>
+    
 </UserControl>
