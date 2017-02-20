@@ -8,7 +8,7 @@ namespace HotelManager.Dao
 
         void Save(Room room);
 
-        List<Room> FindAll();
+        List<Room> FindOld(string query);
 
         List<Room> Find(string query);
 

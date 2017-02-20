@@ -17,6 +17,7 @@ namespace HotelManager.Service.Impl
 
         public void Create(Room room)
         {
+            room.CreationDate = DateTime.Now;
             roomDao.Save(room);
         }
 
@@ -27,16 +28,16 @@ namespace HotelManager.Service.Impl
 
         public void Edit(Room room)
         {
-            throw new NotImplementedException();
+            roomDao.Save(room);
         }
 
-        public List<Room> FindAllRooms()
+        public List<Room> FindRoom(string query, bool old)
         {
-            return roomDao.FindAll();
-        }
+            if(old)
+            {
+                return roomDao.FindOld(query);
+            }
 
-        public List<Room> FindRoom(string query)
-        {
             return roomDao.Find(query);
         }
 

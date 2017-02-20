@@ -14,9 +14,8 @@ namespace HotelManager.Service
 
         Room Delete(int id);
 
-        List<Room> FindRoom(string query);
+        List<Room> FindRoom(string query, bool old);
 
-        List<Room> FindAllRooms();
-        
+
     }
 }

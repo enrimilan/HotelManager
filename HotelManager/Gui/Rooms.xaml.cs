@@ -2,6 +2,7 @@
 using HotelManager.Entity;
 using HotelManager.Gui.Dialog;
 using HotelManager.Service;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
@@ -26,9 +27,65 @@ namespace HotelManager.Gui
             Search("");  
         }
 
-        private void OnTextChanged(object Sender, TextChangedEventArgs e)
+        private void HandlerForCMO(object sender, ContextMenuEventArgs e)
         {
-            Search(searchBox.SearchTextBox.Text);
+            if (roomList.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            FrameworkElement fe = e.Source as FrameworkElement;
+            fe.ContextMenu = BuildMenu(roomList.SelectedIndex);
+        }
+
+        private ContextMenu BuildMenu(int index)
+        {
+            ContextMenu menu = new ContextMenu();
+            Room room = items[roomList.SelectedIndex];
+
+            MenuItem editReservations = new MenuItem();
+            editReservations.Header = "Edit reservations";
+            editReservations.Click += EditReservations_Click;
+            menu.Items.Add(editReservations);
+
+            if (room.Reservations == 0 && room.Status.Equals("Free"))
+            {
+                MenuItem moveToOldRooms = new MenuItem();
+                moveToOldRooms.Header = "Move to old rooms";
+                moveToOldRooms.Click += MoveToOldRooms_Click;
+                menu.Items.Add(moveToOldRooms);
+            }
+
+            return menu;
+        }
+
+        private void MoveToOldRooms_Click(object sender, RoutedEventArgs e)
+        {
+            if (roomList.SelectedIndex == -1)
+            {
+                return;
+            }
+            Room room = items[roomList.SelectedIndex];
+            room.IsOld = true;
+            room.MovedDateString = DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss");
+            roomService.Edit(room);
+            searchBox.Visibility = Visibility.Hidden;
+            Refresh();
+        }
+
+        private void EditReservations_Click(object sender, RoutedEventArgs e)
+        {
+            if (roomList.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            Main main = (Main)Window.GetWindow(this);
+            main.container.Dispatcher.Invoke(delegate
+            {
+                main.container.NavigationService.Navigate(new ReservationsForRoom(items[roomList.SelectedIndex]));
+            });
+
         }
 
         private void createButton_Click(object sender, RoutedEventArgs e)
@@ -50,7 +107,7 @@ namespace HotelManager.Gui
                     return;
                 }
 
-                if (roomService.FindRoom(createRoomDialog.UserInput.Text).Count > 0)
+                if (roomService.FindRoom(createRoomDialog.UserInput.Text, false).Count > 0 || roomService.FindRoom(createRoomDialog.UserInput.Text, true).Count > 0)
                 {
                     messageDialog.setTitle("Error");
                     messageDialog.setMessage(createRoomDialog.UserInput.Text + " already exists!");
@@ -58,29 +115,14 @@ namespace HotelManager.Gui
                     return;
                 }
                 roomService.Create(new Room(createRoomDialog.UserInput.Text));
+                searchBox.Visibility = Visibility.Hidden;
                 Refresh();
-
-                messageDialog.setMessage("Created " + createRoomDialog.UserInput.Text);
-                messageDialog.ShowDialog();
             }
         }
 
-        private void MenuItemDelete_Click(object sender, RoutedEventArgs e)
+        private void OnTextChanged(object Sender, TextChangedEventArgs e)
         {
-            if (roomList.SelectedIndex == -1)
-            {
-                return;
-            }
-
-            //TODO
-            /*
-            items.RemoveAt(lvUsers.SelectedIndex);
-            roomList.Items.Refresh();
-            MessageDialog messageDialog = new MessageDialog();
-            messageDialog.Owner = Application.Current.MainWindow;
-            messageDialog.setMessage("Deleted room!");
-            messageDialog.ShowDialog();*/
-
+            Search(searchBox.SearchTextBox.Text);
         }
 
         private void Search(string query)
@@ -122,10 +164,10 @@ namespace HotelManager.Gui
             Thread.Sleep(1000);
 
             string query = (string) e.Argument;
-            items = roomService.FindRoom(query);
+            items = roomService.FindRoom(query, false);
         }
 
-        void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             circualProgessBar.Visibility = Visibility.Hidden;
             roomList.ItemsSource = items;
