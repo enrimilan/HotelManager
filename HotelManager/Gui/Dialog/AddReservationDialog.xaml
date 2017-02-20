@@ -1,0 +1,56 @@
+﻿<Window x:Class="HotelManager.Gui.Dialog.AddReservationDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HotelManager.Gui.Dialog"
+             mc:Ignorable="d"
+             WindowStartupLocation="CenterOwner"
+             ResizeMode="NoResize"
+             WindowStyle="None" Width="350" Height="300">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Style/Resources.xaml"/>
+                <ResourceDictionary Source="../Style/CircualProgressBar.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <DockPanel MouseDown="DockPanel_MouseDown" Background="{StaticResource PressedBrush}" Margin="0,0,-0.6,0.2">
+        <Grid  Name="TitleBar" Height="30" DockPanel.Dock="Top">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White">Add a new reservation</TextBlock>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button x:Name="CloseButton" Content="r" Style="{StaticResource WindowCloseButtonStyle}" Click="CloseButton_Click"/>
+            </StackPanel>
+        </Grid>
+        <Grid DockPanel.Dock="Top" Height="250">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Vertical">
+                        <Label Margin="10, 0, 0, 0"  Foreground="{StaticResource LabelBrush}">From</Label>
+                        <DatePicker x:Name="FromDatePicker" Margin="10, 0, 0, 0" SelectedDateChanged="FromDatePicker_SelectedDateChanged"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical">
+                        <Label Margin="10, 0, 0, 0"  Foreground="{StaticResource LabelBrush}">To</Label>
+                        <DatePicker x:Name="ToDatePicker" Margin="10, 0, 0, 0" IsEnabled="False"/>
+                    </StackPanel>
+
+                </StackPanel>
+                <Label Margin="10, 0, 0, 0"  Foreground="{StaticResource LabelBrush}">Person</Label>
+                <TextBox x:Name="Person" Margin="15, 0, 15, 0" Height="20"></TextBox>
+                <Label Margin="10, 0, 0, 0"  Foreground="{StaticResource LabelBrush}">Contact</Label>
+                <TextBox x:Name="Contact" Margin="15, 0, 15, 0" Height="20"></TextBox>
+                <StackPanel  Margin="0, 20, 0, 0" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Margin="0, 0, 20, 0" Height="25" Width="80" Content="CANCEL" Style="{StaticResource CancelButtonStyle}" Click="CloseButton_Click"></Button>
+                    <Button Height="25" Width="120" Content="ADD RESERVATION" Style="{StaticResource ConfirmationButtonStyle}" Click="AddReservationButton_Click" ></Button>
+                </StackPanel>
+
+            </StackPanel>
+
+        </Grid>
+    </DockPanel>
+</Window>
