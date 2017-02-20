@@ -9,7 +9,7 @@ namespace HotelManager.Dao
 
         private DbConnection()
         {
-            string relativePath = @"Database\hotel.s3db";
+            string relativePath = @"Database\hotel.db";
             string currentPath;
             currentPath = AppDomain.CurrentDomain.BaseDirectory;
             currentPath = currentPath.Substring(0, currentPath.Length - 11);
