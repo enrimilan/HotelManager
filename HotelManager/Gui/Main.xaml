@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:HotelManager.Gui"
         mc:Ignorable="d"
         WindowStyle="None"
-        Title="Main" Height="600" Width="1200">
+        Title="Main" Height="600" Width="1400">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -40,9 +40,10 @@
 
         <StackPanel Margin="0,-0.5,0,0" Width="150" Background="{StaticResource MenuBackgroundBrush}">
             <Label x:Name="item1" Style="{StaticResource LeftSideMenuItems}" Padding="20, 10, 0, 0">Rooms</Label>
-            <Label x:Name="item2" Style="{StaticResource LeftSideMenuItems}" Padding="20, 10, 0, 0">Old ooms</Label>
+            <Label x:Name="item2" Style="{StaticResource LeftSideMenuItems}" Padding="20, 10, 0, 0">Old rooms</Label>
             <Label x:Name="item3" Style="{StaticResource LeftSideMenuItems}" Padding="20, 10, 0, 0">Reservations</Label>
             <Label x:Name="item4" Style="{StaticResource LeftSideMenuItems}" Padding="20, 10, 0, 0">Canceled reservations</Label>
+            <Label x:Name="item5" Style="{StaticResource LeftSideMenuItems}" Padding="20, 10, 0, 0">Past reservations</Label>
         </StackPanel>
 
         <Grid Margin="-0.5,-0.5,0,0">

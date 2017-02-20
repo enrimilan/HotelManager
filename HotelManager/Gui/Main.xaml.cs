@@ -28,10 +28,13 @@ namespace HotelManager.Gui
             item2.MouseLeftButtonDown += new MouseButtonEventHandler(item2_MouseLeftButtonDown);
             item3.MouseLeftButtonDown += new MouseButtonEventHandler(item3_MouseLeftButtonDown);
             item4.MouseLeftButtonDown += new MouseButtonEventHandler(item4_MouseLeftButtonDown);
+            item5.MouseLeftButtonDown += new MouseButtonEventHandler(item5_MouseLeftButtonDown);
+
             items.Add(item1);
             items.Add(item2);
             items.Add(item3);
             items.Add(item4);
+            items.Add(item5);
             LoadView(item1, "Rooms.xaml");
         }
 
@@ -53,6 +56,11 @@ namespace HotelManager.Gui
         private void item4_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             LoadView(item4, "CanceledReservations.xaml");
+        }
+
+        private void item5_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            LoadView(item5, "PastReservations.xaml");
         }
 
         private void LoadView(Label item, string fileName)
@@ -156,7 +164,7 @@ namespace HotelManager.Gui
                     return;
                 }
 
-                if(roomService.FindRoom(createRoomDialog.UserInput.Text).Count > 0)
+                if(roomService.FindRoom(createRoomDialog.UserInput.Text, false).Count > 0 || roomService.FindRoom(createRoomDialog.UserInput.Text, true).Count > 0)
                 {
                     messageDialog.setTitle("Error");
                     messageDialog.setMessage(createRoomDialog.UserInput.Text + " already exists!");
