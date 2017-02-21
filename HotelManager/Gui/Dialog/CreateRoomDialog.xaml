@@ -17,9 +17,9 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <DockPanel Background="{StaticResource PressedBrush}"  MouseDown="MouseDown" Margin="0,0,-0.6,0.2">
+    <DockPanel Background="{StaticResource PressedBrush}"  MouseDown="DockPanel_MouseDown" Margin="0,0,-0.6,0.2">
         <Grid Name="TitleBar"  Height="30" DockPanel.Dock="Top">
-            <TextBlock x:Name="Title" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White">Create a new room</TextBlock>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White">Create a new room</TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Button x:Name="CloseButton" Content="r" Style="{StaticResource WindowCloseButtonStyle}" Click="CloseButton_Click"/>
             </StackPanel>

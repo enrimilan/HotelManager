@@ -18,7 +18,7 @@
     
     <DockPanel>
         
-        <Grid Name="TitleBar" MouseDown="MouseDown" Background="{StaticResource MenuBackgroundBrush}" Height="20" DockPanel.Dock="Top">
+        <Grid Name="TitleBar" MouseDown="Main_MouseDown" Background="{StaticResource MenuBackgroundBrush}" Height="20" DockPanel.Dock="Top">
             <TextBlock Foreground="White" HorizontalAlignment="Center">Hotel Manager</TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Button x:Name="MinimizeButton" Style="{StaticResource WindowButtonStyle}" Content="0" Click="MinimizeButton_Click"/>

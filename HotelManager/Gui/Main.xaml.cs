@@ -89,7 +89,7 @@ namespace HotelManager.Gui
             });
         }
 
-        private void MouseDown(object sender, MouseButtonEventArgs e)
+        private void Main_MouseDown(object sender, MouseButtonEventArgs e)
         {
             
             if (e.ChangedButton == MouseButton.Left)

@@ -34,7 +34,7 @@ namespace HotelManager.Gui.Dialog
             this.Close();
         }
 
-        private void MouseDown(object sender, MouseButtonEventArgs e)
+        private void DockPanel_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
