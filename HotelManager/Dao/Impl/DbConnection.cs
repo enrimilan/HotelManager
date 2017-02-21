@@ -12,7 +12,6 @@ namespace HotelManager.Dao
             string relativePath = @"Database\hotel.db";
             string currentPath;
             currentPath = AppDomain.CurrentDomain.BaseDirectory;
-            currentPath = currentPath.Substring(0, currentPath.Length - 11);
             string absolutePath = System.IO.Path.Combine(currentPath, relativePath);
             string connectionString = string.Format("Data Source={0}", absolutePath);
             connection = new SQLiteConnection(connectionString);
