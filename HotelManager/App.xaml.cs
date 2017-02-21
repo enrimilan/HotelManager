@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 
 namespace HotelManager
 {
@@ -12,6 +13,7 @@ namespace HotelManager
             App app = new App();
             app.InitializeComponentCustom();
             app.Run();
+            Trace.TraceInformation("Started application.");
         }
 
         [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "4.0.0.0")]
