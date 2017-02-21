@@ -16,6 +16,7 @@ namespace HotelManager.Gui
     {
         private List<Reservation> items = new List<Reservation>();
         private ReservationService reservationService = ServiceFactory.GetReservationService();
+        private RoomService roomService = ServiceFactory.GetRoomService();
         private AbortableBackgroundWorker worker = new AbortableBackgroundWorker();
 
         public Reservations()
@@ -58,8 +59,13 @@ namespace HotelManager.Gui
             {
                 return;
             }
-
-            //TODO show reservations for a room here
+            Reservation reservation = items[reservationList.SelectedIndex];
+            Room room = roomService.GetRoom(reservation.Room.Id);
+            Main main = (Main)Window.GetWindow(this);
+            main.container.Dispatcher.Invoke(delegate
+            {
+                main.container.NavigationService.Navigate(new ReservationsForRoom(room));
+            });
         }
 
         private void OnTextChanged(object Sender, TextChangedEventArgs e)

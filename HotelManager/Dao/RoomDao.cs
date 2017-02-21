@@ -12,5 +12,7 @@ namespace HotelManager.Dao
 
         List<Room> Find(string query);
 
+        Room Find(int id);
+
     }
 }
