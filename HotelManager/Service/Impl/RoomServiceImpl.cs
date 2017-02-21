@@ -21,11 +21,6 @@ namespace HotelManager.Service.Impl
             roomDao.Save(room);
         }
 
-        public Room Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Edit(Room room)
         {
             roomDao.Save(room);
@@ -43,7 +38,7 @@ namespace HotelManager.Service.Impl
 
         public Room GetRoom(int id)
         {
-            throw new NotImplementedException();
+            return roomDao.Find(id);
         }
     }
 }

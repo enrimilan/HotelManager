@@ -45,6 +45,12 @@ namespace HotelManager.Dao.Impl
             return ProcessRoomsResult(dt);
         }
 
+        public Room Find(int id)
+        {
+            DataTable dt = ExecuteSql("SELECT * FROM rooms WHERE id=" + id);
+            return ProcessRoomsResult(dt)[0];
+        }
+
         public List<Room> FindOld(string query)
         {
             DataTable dt = ExecuteSql("SELECT * FROM rooms WHERE old='True' AND (number LIKE '%" + query + "%' OR moved LIKE '%" + query +"%')");

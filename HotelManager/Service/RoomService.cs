@@ -12,8 +12,6 @@ namespace HotelManager.Service
 
         void Edit(Room room);
 
-        Room Delete(int id);
-
         List<Room> FindRoom(string query, bool old);
 
 

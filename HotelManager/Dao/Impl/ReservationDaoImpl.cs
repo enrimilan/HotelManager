@@ -83,6 +83,9 @@ namespace HotelManager.Dao.Impl
                 reservation.Past = bool.Parse((string)row["past"]);
                 reservation.CheckedIn = bool.Parse((string)row["checkedIn"]);
                 reservation.RoomString = (string)row["room"];
+                Room room = new Room(reservation.RoomString);
+                room.Id = int.Parse(row["roomid"].ToString());
+                reservation.Room = room;
                 if (!(row["endDate"] is System.DBNull))
                 {
                     reservation.EndDate = DateTime.ParseExact((string)row["endDate"], "yyyy.MM.dd HH:mm:ss", CultureInfo.CurrentCulture);
