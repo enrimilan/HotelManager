@@ -116,6 +116,7 @@ namespace HotelManager.Gui
                 }
                 roomService.Create(new Room(createRoomDialog.UserInput.Text));
                 searchBox.Visibility = Visibility.Hidden;
+                createButton.Visibility = Visibility.Hidden;
                 Refresh();
             }
         }
