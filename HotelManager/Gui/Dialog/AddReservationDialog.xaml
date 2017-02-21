@@ -18,7 +18,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <DockPanel MouseDown="DockPanel_MouseDown" Background="{StaticResource PressedBrush}" Margin="0,0,-0.6,0.2">
+    <DockPanel MouseDown="DockPanel_MouseDown" KeyDown="DockPanel_KeyDown" Background="{StaticResource PressedBrush}" Margin="0,0,-0.6,0.2">
         <Grid  Name="TitleBar" Height="30" DockPanel.Dock="Top">
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White">Add a new reservation</TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">

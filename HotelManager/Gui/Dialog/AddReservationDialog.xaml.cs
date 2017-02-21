@@ -98,5 +98,14 @@ namespace HotelManager.Gui.Dialog
             ToDatePicker.IsEnabled = true;
             Reset();
         }
+
+        private void DockPanel_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                Add = true;
+                this.Close();
+            }
+        }
     }
 }
