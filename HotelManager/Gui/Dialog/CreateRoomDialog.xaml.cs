@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 
 namespace HotelManager.Gui.Dialog
@@ -42,5 +41,13 @@ namespace HotelManager.Gui.Dialog
             }
         }
 
+        private void DockPanel_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                Create = true;
+                this.Close();
+            }
+        }
     }
 }

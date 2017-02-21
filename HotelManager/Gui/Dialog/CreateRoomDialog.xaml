@@ -17,7 +17,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <DockPanel Background="{StaticResource PressedBrush}"  MouseDown="DockPanel_MouseDown" Margin="0,0,-0.6,0.2">
+    <DockPanel Background="{StaticResource PressedBrush}"  MouseDown="DockPanel_MouseDown" KeyDown="DockPanel_KeyDown" Margin="0,0,-0.6,0.2">
         <Grid Name="TitleBar"  Height="30" DockPanel.Dock="Top">
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White">Create a new room</TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
@@ -30,7 +30,7 @@
                 <TextBox x:Name="UserInput" Margin="15, 0, 15, 0" Height="20"></TextBox>
                 <StackPanel  Margin="0, 20, 0, 0" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Margin="0, 0, 20, 0" Height="25" Width="80" Content="CANCEL" Style="{StaticResource CancelButtonStyle}" Click="CloseButton_Click"></Button>
-                    <Button Height="25" Width="80" Content="CREATE" Style="{StaticResource ConfirmationButtonStyle}" Click="CreateButton_Click" ></Button>
+                    <Button x:Name="createButton" Height="25" Width="80" Content="CREATE" Style="{StaticResource ConfirmationButtonStyle}" Click="CreateButton_Click" ></Button>
                 </StackPanel>
                 
             </StackPanel>
