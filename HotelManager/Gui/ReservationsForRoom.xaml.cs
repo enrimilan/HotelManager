@@ -184,6 +184,7 @@ namespace HotelManager.Gui
                 room.Status = "Busy";
                 room.Reservations = room.Reservations + 1;
                 roomService.Edit(room);
+                addReservationButton.Visibility = Visibility.Hidden;
                 ReloadReservations();
             }
         }
