@@ -188,5 +188,13 @@ namespace HotelManager.Gui
             }
         }
 
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            Main main = (Main)Window.GetWindow(this);
+            main.container.Dispatcher.Invoke(delegate
+            {
+                main.container.NavigationService.GoBack();
+            });
+        }
     }
 }

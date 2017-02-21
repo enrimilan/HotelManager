@@ -18,7 +18,11 @@
 
     <Grid Background="{StaticResource ContentBrush}">
 
-        <TextBlock x:Name="Title" Foreground="White" FontSize="25px" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,30,0,0"/>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="25,30,0,0">
+            <Button x:Name="backButton" Content="Go back" Click="backButton_Click" Width="80" Style='{StaticResource CancelButtonStyle}'/>
+            <TextBlock x:Name="Title" Foreground="White" FontSize="25px" Margin="20, 0, 0, 0"  />
+        </StackPanel>
+
 
         <Button x:Name="addReservationButton" Click="AddReservationButton_Click" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="30" Height="25" Width="120" Content="ADD RESERVATION" Style="{StaticResource ConfirmationButtonStyle}" />
 
