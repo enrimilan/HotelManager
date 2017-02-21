@@ -174,6 +174,32 @@ namespace HotelManager.Gui
 
             if(dialog.Add)
             {
+
+                MessageDialog messageDialog = new MessageDialog();
+                messageDialog.Owner = Application.Current.MainWindow;
+
+                if (dialog.FromDatePicker.SelectedDate == null || dialog.ToDatePicker.SelectedDate == null)
+                {
+                    messageDialog.setTitle("Error");
+                    messageDialog.setMessage("Dates need to be selected!");
+                    messageDialog.ShowDialog();
+                    return;
+                }
+                if (dialog.Person.Text.Equals(""))
+                {
+                    messageDialog.setTitle("Error");
+                    messageDialog.setMessage("Person name can't be empty!");
+                    messageDialog.ShowDialog();
+                    return;
+                }
+                if (dialog.Contact.Text.Equals(""))
+                {
+                    messageDialog.setTitle("Error");
+                    messageDialog.setMessage("Person's contact can't be empty!");
+                    messageDialog.ShowDialog();
+                    return;
+                }
+
                 Reservation reservation = new Reservation();
                 reservation.Room = room;
                 reservation.From = dialog.FromDatePicker.SelectedDate.Value;
