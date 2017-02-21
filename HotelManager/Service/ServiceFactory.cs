@@ -16,5 +16,10 @@ namespace HotelManager.Service
             return new ReservationServiceImpl(new ReservationDaoImpl());
         }
 
+        public static MainService GetMainService()
+        {
+            return new MainServiceImpl(new MainDaoImpl());
+        }
+
     }
 }
