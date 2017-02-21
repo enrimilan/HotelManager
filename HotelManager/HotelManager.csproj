@@ -64,9 +64,11 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Dao\Impl\DbConnection.cs" />
+    <Compile Include="Dao\Impl\MainDaoImpl.cs" />
     <Compile Include="Dao\Impl\ReservationDaoImpl.cs" />
     <Compile Include="Dao\Impl\RoomDaoImpl.cs" />
     <Compile Include="Dao\Impl\SQLiteDao.cs" />
+    <Compile Include="Dao\MainDao.cs" />
     <Compile Include="Dao\ReservationDao.cs" />
     <Compile Include="Dao\RoomDao.cs" />
     <Compile Include="Entity\Reservation.cs" />
@@ -104,8 +106,10 @@
     <Compile Include="Gui\Rooms.xaml.cs">
       <DependentUpon>Rooms.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Service\Impl\MainServiceImpl.cs" />
     <Compile Include="Service\Impl\ReservationServiceImpl.cs" />
     <Compile Include="Service\Impl\RoomServiceImpl.cs" />
+    <Compile Include="Service\MainService.cs" />
     <Compile Include="Service\ReservationService.cs" />
     <Compile Include="Service\RoomService.cs" />
     <Compile Include="Service\ServiceFactory.cs" />
