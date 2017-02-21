@@ -116,7 +116,7 @@ namespace HotelManager.Gui
                 }
                 roomService.Create(new Room(createRoomDialog.UserInput.Text));
                 searchBox.Visibility = Visibility.Hidden;
-                createButton.Visibility = Visibility.Hidden;
+                
                 Refresh();
             }
         }
@@ -154,6 +154,7 @@ namespace HotelManager.Gui
 
         private void BeforeSearch()
         {
+            createButton.Visibility = Visibility.Hidden;
             circualProgessBar.Visibility = Visibility.Visible;
             roomList.Visibility = Visibility.Hidden;
             noRoomsMessage.Visibility = Visibility.Hidden;
