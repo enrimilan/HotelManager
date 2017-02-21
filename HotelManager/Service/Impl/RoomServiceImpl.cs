@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using HotelManager.Entity;
 using HotelManager.Dao;
 
@@ -17,7 +16,6 @@ namespace HotelManager.Service.Impl
 
         public void Create(Room room)
         {
-            room.CreationDate = DateTime.Now;
             roomDao.Save(room);
         }
 

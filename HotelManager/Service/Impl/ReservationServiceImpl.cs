@@ -1,7 +1,6 @@
 ﻿using HotelManager.Dao;
 using HotelManager.Entity;
 using System.Collections.Generic;
-using System;
 
 namespace HotelManager.Service.Impl
 {
