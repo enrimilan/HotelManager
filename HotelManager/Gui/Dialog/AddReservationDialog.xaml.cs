@@ -1,7 +1,6 @@
 ﻿using HotelManager.Entity;
 using System.Collections.Generic;
 using System;
-using HotelManager.Service;
 using System.Windows.Controls;
 
 namespace HotelManager.Gui.Dialog
@@ -12,7 +11,6 @@ namespace HotelManager.Gui.Dialog
     public partial class AddReservationDialog : BaseDialog
     {
 
-        private ReservationService reservationService = ServiceFactory.GetReservationService();
         private List<CalendarDateRange> FromBlackoutDates = new List<CalendarDateRange>();
         private List<CalendarDateRange> ToBlackoutDates = new List<CalendarDateRange>();
         private List<Reservation> reservations = new List<Reservation>();
