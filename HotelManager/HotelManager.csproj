@@ -89,6 +89,7 @@
     <Compile Include="Gui\Dialog\AddReservationDialog.xaml.cs">
       <DependentUpon>AddReservationDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Gui\Dialog\BaseDialog.cs" />
     <Compile Include="Gui\Dialog\MessageDialog.xaml.cs">
       <DependentUpon>MessageDialog.xaml</DependentUpon>
     </Compile>

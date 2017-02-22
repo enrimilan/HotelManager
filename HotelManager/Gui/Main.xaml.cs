@@ -1,6 +1,7 @@
 ﻿using HotelManager.Entity;
 using HotelManager.Gui.Dialog;
 using HotelManager.Service;
+using HotelManager.Util;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -158,28 +159,32 @@ namespace HotelManager.Gui
                 
                 if (createRoomDialog.UserInput.Text.Equals(""))
                 {
-                    messageDialog.setTitle("Error");
-                    messageDialog.setMessage("Room number can't be empty!");
+                    messageDialog.Dialog_Title.Text = "Error";
+                    messageDialog.Message.Text = "Room number can't be empty!";
                     messageDialog.ShowDialog();
                     return;
                 }
 
                 if(roomService.FindRoom(createRoomDialog.UserInput.Text, false).Count > 0 || roomService.FindRoom(createRoomDialog.UserInput.Text, true).Count > 0)
                 {
-                    messageDialog.setTitle("Error");
-                    messageDialog.setMessage(createRoomDialog.UserInput.Text + " already exists!");
+                    messageDialog.Dialog_Title.Text = "Error";
+                    messageDialog.Message.Text = createRoomDialog.UserInput.Text + " already exists!";
                     messageDialog.ShowDialog();
                     return;
                 }
-                roomService.Create(new Room(createRoomDialog.UserInput.Text));
+                Room room = new Room(createRoomDialog.UserInput.Text);
+                room.CreationDateString = DateTime.Now.ToString(Constants.DateFormat);
+                roomService.Create(room);
+
                 UserControl userControl = (UserControl)container.Content;
                 if (userControl is Rooms)
                 {
                     Rooms rooms = userControl as Rooms;
+                    rooms.searchBox.Visibility = Visibility.Hidden;
                     rooms.Refresh();
                 }
                 
-                messageDialog.setMessage("Created " + createRoomDialog.UserInput.Text);
+                messageDialog.Message.Text = "Created " + createRoomDialog.UserInput.Text;
                 messageDialog.ShowDialog();
             }
 
@@ -195,8 +200,8 @@ namespace HotelManager.Gui
         {
             MessageDialog messageDialog = new MessageDialog();
             messageDialog.Owner = Application.Current.MainWindow;
-            messageDialog.setTitle("About Hotel Manager");
-            messageDialog.setMessage("Hotel Manager \n   Version 1.0 \n        2017");
+            messageDialog.Dialog_Title.Text = "About Hotel Manager";
+            messageDialog.Message.Text = "Hotel Manager \n   Version 1.0 \n        2017";
             messageDialog.ShowDialog();
         }
     }

@@ -1,10 +1,7 @@
-﻿using HotelManager.Async;
-using HotelManager.Entity;
+﻿using HotelManager.Entity;
 using System.Collections.Generic;
-using System.Windows;
 using System;
 using HotelManager.Service;
-using System.Windows.Input;
 using System.Windows.Controls;
 
 namespace HotelManager.Gui.Dialog
@@ -12,10 +9,9 @@ namespace HotelManager.Gui.Dialog
     /// <summary>
     /// Interaction logic for AddReservationDialog.xaml
     /// </summary>
-    public partial class AddReservationDialog : Window
+    public partial class AddReservationDialog : BaseDialog
     {
 
-        public bool Add = false;
         private ReservationService reservationService = ServiceFactory.GetReservationService();
         private List<CalendarDateRange> FromBlackoutDates = new List<CalendarDateRange>();
         private List<CalendarDateRange> ToBlackoutDates = new List<CalendarDateRange>();
@@ -69,43 +65,11 @@ namespace HotelManager.Gui.Dialog
             ToDatePicker.BlackoutDates.Add(range);
         }
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void AddReservationButton_Click(object sender, RoutedEventArgs e)
-        {
-            Add = true;
-            this.Close();
-        }
-
-        private void DockPanel_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                this.DragMove();
-            }
-        }
-
         private void FromDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             ToDatePicker.IsEnabled = true;
             Reset();
         }
 
-        private void DockPanel_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-            {
-                Add = true;
-                this.Close();
-            }
-        }
     }
 }

@@ -2,6 +2,7 @@
 using HotelManager.Entity;
 using HotelManager.Gui.Dialog;
 using HotelManager.Service;
+using HotelManager.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -101,20 +102,22 @@ namespace HotelManager.Gui
 
                 if (createRoomDialog.UserInput.Text.Equals(""))
                 {
-                    messageDialog.setTitle("Error");
-                    messageDialog.setMessage("Room number can't be empty!");
+                    messageDialog.Dialog_Title.Text = "Error";
+                    messageDialog.Message.Text = "Room number can't be empty!";
                     messageDialog.ShowDialog();
                     return;
                 }
 
                 if (roomService.FindRoom(createRoomDialog.UserInput.Text, false).Count > 0 || roomService.FindRoom(createRoomDialog.UserInput.Text, true).Count > 0)
                 {
-                    messageDialog.setTitle("Error");
-                    messageDialog.setMessage(createRoomDialog.UserInput.Text + " already exists!");
+                    messageDialog.Dialog_Title.Text = "Error";
+                    messageDialog.Message.Text = createRoomDialog.UserInput.Text + " already exists!";
                     messageDialog.ShowDialog();
                     return;
                 }
-                roomService.Create(new Room(createRoomDialog.UserInput.Text));
+                Room room = new Room(createRoomDialog.UserInput.Text);
+                room.CreationDateString = DateTime.Now.ToString(Constants.DateFormat);
+                roomService.Create(room);
                 searchBox.Visibility = Visibility.Hidden;
                 
                 Refresh();
