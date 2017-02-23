@@ -96,31 +96,9 @@ namespace HotelManager.Gui
             createRoomDialog.Owner = Application.Current.MainWindow;
             createRoomDialog.ShowDialog();
 
-            if (createRoomDialog.Create)
+            if (createRoomDialog.Create && createRoomDialog.CheckForErrorsAndProceed())
             {
-                MessageDialog messageDialog = new MessageDialog();
-                messageDialog.Owner = Application.Current.MainWindow;
-
-                if (createRoomDialog.UserInput.Text.Equals(""))
-                {
-                    messageDialog.Dialog_Title = "Error";
-                    messageDialog.Message.Text = "Room number can't be empty!";
-                    messageDialog.ShowDialog();
-                    return;
-                }
-
-                if (roomService.FindRoom(createRoomDialog.UserInput.Text, false).Count > 0 || roomService.FindRoom(createRoomDialog.UserInput.Text, true).Count > 0)
-                {
-                    messageDialog.Dialog_Title = "Error";
-                    messageDialog.Message.Text = createRoomDialog.UserInput.Text + " already exists!";
-                    messageDialog.ShowDialog();
-                    return;
-                }
-                Room room = new Room(createRoomDialog.UserInput.Text);
-                room.CreationDateString = DateTime.Now.ToString(Constants.DateFormat);
-                roomService.Create(room);
                 searchBox.Visibility = Visibility.Hidden;
-                
                 Refresh();
             }
         }
