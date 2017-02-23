@@ -19,6 +19,7 @@ namespace HotelManager.Gui
 
         private List<Label> items = new List<Label>();
         private RoomService roomService = ServiceFactory.GetRoomService();
+        private MainService mainService = ServiceFactory.GetMainService();
 
         public Main()
         {
@@ -109,6 +110,7 @@ namespace HotelManager.Gui
         /// </summary>
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+            mainService.Close();
             Application.Current.Shutdown();
         }
 
@@ -193,7 +195,7 @@ namespace HotelManager.Gui
 
         private void FileExit_Click(object sender, RoutedEventArgs e)
         {
-            // TODO need to close db n stuff here
+            mainService.Close();
             Application.Current.Shutdown();
         }
 
