@@ -170,6 +170,7 @@ namespace HotelManager.Gui
         private void AddReservationButton_Click(object sender, RoutedEventArgs e)
         {   
             AddReservationDialog dialog = new AddReservationDialog(items);
+            dialog.Dialog_Title = "Add a new reservation";
             dialog.Owner = Application.Current.MainWindow;
             dialog.ShowDialog();
 
@@ -181,21 +182,21 @@ namespace HotelManager.Gui
 
                 if (dialog.FromDatePicker.SelectedDate == null || dialog.ToDatePicker.SelectedDate == null)
                 {
-                    messageDialog.Dialog_Title.Text = "Error";
+                    messageDialog.Dialog_Title = "Error";
                     messageDialog.Message.Text = "Dates need to be selected!";
                     messageDialog.ShowDialog();
                     return;
                 }
                 if (dialog.Person.Text.Equals(""))
                 {
-                    messageDialog.Dialog_Title.Text = "Error";
+                    messageDialog.Dialog_Title = "Error";
                     messageDialog.Message.Text = "Person name can't be empty!";
                     messageDialog.ShowDialog();
                     return;
                 }
                 if (dialog.Contact.Text.Equals(""))
                 {
-                    messageDialog.Dialog_Title.Text = "Error";
+                    messageDialog.Dialog_Title = "Error";
                     messageDialog.Message.Text = "Person's contact can't be empty!";
                     messageDialog.ShowDialog();
                     return;

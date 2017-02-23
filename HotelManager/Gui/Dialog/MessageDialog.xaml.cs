@@ -5,6 +5,7 @@
     /// </summary>
     public partial class MessageDialog : BaseDialog
     {
+
         public MessageDialog()
         {
             InitializeComponent();

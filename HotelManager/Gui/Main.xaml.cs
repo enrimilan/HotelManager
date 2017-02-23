@@ -149,6 +149,7 @@ namespace HotelManager.Gui
         private void FileNewRoom_Click(object sender, RoutedEventArgs e)
         {
             CreateRoomDialog createRoomDialog = new CreateRoomDialog();
+            createRoomDialog.Dialog_Title = "Create a new room";
             createRoomDialog.Owner = Application.Current.MainWindow;
             createRoomDialog.ShowDialog();
 
@@ -159,7 +160,7 @@ namespace HotelManager.Gui
                 
                 if (createRoomDialog.UserInput.Text.Equals(""))
                 {
-                    messageDialog.Dialog_Title.Text = "Error";
+                    messageDialog.Dialog_Title = "Error";
                     messageDialog.Message.Text = "Room number can't be empty!";
                     messageDialog.ShowDialog();
                     return;
@@ -167,7 +168,7 @@ namespace HotelManager.Gui
 
                 if(roomService.FindRoom(createRoomDialog.UserInput.Text, false).Count > 0 || roomService.FindRoom(createRoomDialog.UserInput.Text, true).Count > 0)
                 {
-                    messageDialog.Dialog_Title.Text = "Error";
+                    messageDialog.Dialog_Title = "Error";
                     messageDialog.Message.Text = createRoomDialog.UserInput.Text + " already exists!";
                     messageDialog.ShowDialog();
                     return;
@@ -200,7 +201,7 @@ namespace HotelManager.Gui
         {
             MessageDialog messageDialog = new MessageDialog();
             messageDialog.Owner = Application.Current.MainWindow;
-            messageDialog.Dialog_Title.Text = "About Hotel Manager";
+            messageDialog.Dialog_Title = "About Hotel Manager";
             messageDialog.Message.Text = "Hotel Manager \n   Version 1.0 \n        2017";
             messageDialog.ShowDialog();
         }

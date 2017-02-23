@@ -5,34 +5,29 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:base="clr-namespace:HotelManager.Gui.Dialog"
              mc:Ignorable="d"
+             Loaded="BaseDialog_Loaded"    
              WindowStyle="None" Width="340" Height="130">
 
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Style/Resources.xaml"/>
+                <ResourceDictionary Source="BaseDialogControl.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
 
-    <DockPanel Background="{StaticResource PressedBrush}"  MouseDown="Dialog_MouseDown" KeyDown="Dialog_KeyDown" Margin="0,0,-0.6,0.2">
-        <Grid Name="TitleBar"  Height="30" DockPanel.Dock="Top">
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White">Create a new room</TextBlock>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <Button x:Name="CloseButton" Content="r" Style="{StaticResource WindowCloseButtonStyle}" Click="CloseButton_Click"/>
-            </StackPanel>
-        </Grid>
-        <Grid DockPanel.Dock="Top" Height="100">
-            <StackPanel Orientation="Vertical">
+    <base:BaseDialogControl>
+        <base:BaseDialogControl.Content>
+            <StackPanel Orientation="Vertical" Height="100">
                 <Label Margin="10, 0, 0, 0"  Foreground="{StaticResource LabelBrush}">Room number</Label>
                 <TextBox x:Name="UserInput" Margin="15, 0, 15, 0" Height="20"></TextBox>
                 <StackPanel  Margin="0, 20, 0, 0" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Margin="0, 0, 20, 0" Height="25" Width="80" Content="CANCEL" Style="{StaticResource CancelButtonStyle}" Click="CloseButton_Click"></Button>
                     <Button x:Name="createButton" Height="25" Width="80" Content="CREATE" Style="{StaticResource ConfirmationButtonStyle}" Click="CreateButton_Click" ></Button>
                 </StackPanel>
-                
             </StackPanel>
-            
-        </Grid>
-    </DockPanel>
+        </base:BaseDialogControl.Content>
+    </base:BaseDialogControl>
+
 </base:BaseDialog>

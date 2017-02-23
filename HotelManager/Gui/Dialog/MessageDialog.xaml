@@ -5,25 +5,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:base="clr-namespace:HotelManager.Gui.Dialog"
              mc:Ignorable="d"
+             Loaded="BaseDialog_Loaded"
              WindowStyle="None" Width="340" Height="90">
     
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Style/Resources.xaml"/>
+                <ResourceDictionary Source="BaseDialogControl.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
 
-    <DockPanel Background="{StaticResource PressedBrush}"  MouseDown="Dialog_MouseDown" Margin="0,0,-0.6,0.2">
-        <Grid Name="TitleBar"  Height="30" DockPanel.Dock="Top">
-            <TextBlock x:Name="Dialog_Title" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"></TextBlock>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <Button x:Name="CloseButton" Content="r" Style="{StaticResource WindowCloseButtonStyle}" Click="CloseButton_Click"/>
-            </StackPanel>
-        </Grid>
-        <Grid DockPanel.Dock="Top" Height="57">
-            <TextBlock x:Name="Message" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource LabelBrush}" >Message</TextBlock>
-        </Grid>
-    </DockPanel>
+    <base:BaseDialogControl>
+        <base:BaseDialogControl.Content>
+            <Grid Height="60">
+                <TextBlock Name="Message" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource LabelBrush}">Message</TextBlock>
+            </Grid>
+        </base:BaseDialogControl.Content>
+    </base:BaseDialogControl>
 </base:BaseDialog>
