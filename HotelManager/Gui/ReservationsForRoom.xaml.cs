@@ -24,7 +24,6 @@ namespace HotelManager.Gui
             this.room = room;
             InitializeComponent();
             Title.Text = "Reservations for " + room.Number;
-            
         }
 
         protected override void BaseFrame_Loaded(object sender, RoutedEventArgs e)
@@ -44,6 +43,7 @@ namespace HotelManager.Gui
         protected override void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             base.Worker_DoWork(sender, e);
+            room = roomService.GetRoom(room.Id);
             items = reservationService.FindReservation(room);
         }
 

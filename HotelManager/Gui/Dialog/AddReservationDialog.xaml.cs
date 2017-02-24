@@ -103,7 +103,6 @@ namespace HotelManager.Gui.Dialog
             }
 
             Reservation reservation = new Reservation();
-            reservation.Room = roomService.GetRoom(room.Id);
             reservation.FromDateString = FromDatePicker.SelectedDate.Value.ToString(Constants.DateFormat);
             reservation.ToDateString = ToDatePicker.SelectedDate.Value.ToString(Constants.DateFormat);
             reservation.CreationDateString = DateTime.Now.ToString(Constants.DateFormat);
