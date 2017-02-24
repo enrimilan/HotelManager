@@ -1,48 +1,62 @@
-﻿using HotelManager.Async;
-using HotelManager.Entity;
+﻿using HotelManager.Entity;
 using HotelManager.Gui.Dialog;
 using HotelManager.Service;
 using HotelManager.Util;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+
 namespace HotelManager.Gui
 {
     /// <summary>
     /// Interaction logic for Rooms.xaml
     /// </summary>
-    public partial class Rooms : UserControl
+    public partial class Rooms : BaseFrameWithSearch<Room>
     {
 
-        private List<Room> items = new List<Room>();
         private RoomService roomService = ServiceFactory.GetRoomService();
-        private AbortableBackgroundWorker worker = new AbortableBackgroundWorker();
 
         public Rooms()
         {
             InitializeComponent();
-            searchBox.AddHandler(TextBox.TextChangedEvent, new TextChangedEventHandler(OnTextChanged));
-            Search("");  
         }
 
-        private void HandlerForCMO(object sender, ContextMenuEventArgs e)
+        protected override void BaseFrame_Loaded(object sender, RoutedEventArgs e)
         {
-            if (roomList.SelectedIndex == -1)
-            {
-                return;
-            }
-
-            FrameworkElement fe = e.Source as FrameworkElement;
-            fe.ContextMenu = BuildMenu(roomList.SelectedIndex);
+            base.BaseFrame_Loaded(sender, e);
+            emptyListMessage.Text = "No rooms.";
+            GridView gridView = list.View as GridView;
+            gridView.Columns.Add(CreateColumn("Number", "Number"));
+            gridView.Columns.Add(CreateColumn("Status", "Status"));
+            gridView.Columns.Add(CreateColumn("Reservations", "Reservations"));
+            gridView.Columns.Add(CreateColumn("CreationDateString", "Created"));
+            ReloadData("");
         }
 
-        private ContextMenu BuildMenu(int index)
+        protected override void Worker_OnPreExecute()
+        {
+            base.Worker_OnPreExecute();
+            createButton.Visibility = Visibility.Hidden;
+        }
+
+        protected override void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            base.Worker_DoWork(sender, e);
+            string query = (string)e.Argument;
+            items = roomService.FindRoom(query, false);
+        }
+
+        protected override void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            base.Worker_RunWorkerCompleted(sender, e);
+            createButton.Visibility = Visibility.Visible;
+        }
+
+        protected override ContextMenu BuildMenu(int index)
         {
             ContextMenu menu = new ContextMenu();
-            Room room = items[roomList.SelectedIndex];
+            Room room = items[list.SelectedIndex];
 
             MenuItem editReservations = new MenuItem();
             editReservations.Header = "Edit reservations";
@@ -62,21 +76,21 @@ namespace HotelManager.Gui
 
         private void MoveToOldRooms_Click(object sender, RoutedEventArgs e)
         {
-            if (roomList.SelectedIndex == -1)
+            if (list.SelectedIndex == -1)
             {
                 return;
             }
-            Room room = items[roomList.SelectedIndex];
+            Room room = base.items[list.SelectedIndex];
             room.IsOld = true;
-            room.MovedDateString = DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss");
+            room.MovedDateString = DateTime.Now.ToString(Constants.DateFormat);
             roomService.Edit(room);
             searchBox.Visibility = Visibility.Hidden;
-            Refresh();
+            ReloadData(searchBox.SearchTextBox.Text);
         }
 
         private void EditReservations_Click(object sender, RoutedEventArgs e)
         {
-            if (roomList.SelectedIndex == -1)
+            if (list.SelectedIndex == -1)
             {
                 return;
             }
@@ -84,9 +98,8 @@ namespace HotelManager.Gui
             Main main = (Main)Window.GetWindow(this);
             main.container.Dispatcher.Invoke(delegate
             {
-                main.container.NavigationService.Navigate(new ReservationsForRoom(items[roomList.SelectedIndex]));
+                main.container.NavigationService.Navigate(new ReservationsForRoom(items[list.SelectedIndex]));
             });
-
         }
 
         private void createButton_Click(object sender, RoutedEventArgs e)
@@ -99,75 +112,9 @@ namespace HotelManager.Gui
             if (createRoomDialog.Create && createRoomDialog.CheckForErrorsAndProceed())
             {
                 searchBox.Visibility = Visibility.Hidden;
-                Refresh();
+                ReloadData(searchBox.SearchTextBox.Text);
             }
-        }
-
-        private void OnTextChanged(object Sender, TextChangedEventArgs e)
-        {
-            Search(searchBox.SearchTextBox.Text);
-        }
-
-        private void Search(string query)
-        {
-            BeforeSearch();
-            
-            // stop possible current running background worker
-            if (worker.IsBusy)
-            {
-                // don't update ui if aborted since the next worker will do that anyway.
-                worker.RunWorkerCompleted -= Worker_RunWorkerCompleted;
-
-                worker.Abort();
-                worker.Dispose();
-            }
-
-            worker = new AbortableBackgroundWorker();
-            worker.DoWork += Worker_DoWork;
-            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            worker.WorkerSupportsCancellation = true;
-            worker.RunWorkerAsync(query);
-        }
-
-        public void Refresh()
-        {
-            Search(searchBox.SearchTextBox.Text);
-        }
-
-        private void BeforeSearch()
-        {
-            createButton.Visibility = Visibility.Hidden;
-            circualProgessBar.Visibility = Visibility.Visible;
-            roomList.Visibility = Visibility.Hidden;
-            noRoomsMessage.Visibility = Visibility.Hidden;
-        }
-
-        private void Worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            // simulate processing
-            Thread.Sleep(1000);
-
-            string query = (string) e.Argument;
-            items = roomService.FindRoom(query, false);
-        }
-
-        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            circualProgessBar.Visibility = Visibility.Hidden;
-            roomList.ItemsSource = items;
-            if(items.Count == 0)
-            {
-                noRoomsMessage.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                roomList.Visibility = Visibility.Visible;
-            }
-            
-            createButton.Visibility = Visibility.Visible;
-            searchBox.Visibility = Visibility.Visible;
         }
 
     }
-   
 }

@@ -1,9 +1,6 @@
-﻿using HotelManager.Async;
-using HotelManager.Entity;
+﻿using HotelManager.Entity;
 using HotelManager.Service;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,82 +9,37 @@ namespace HotelManager.Gui
     /// <summary>
     /// Interaction logic for PastReservations.xaml
     /// </summary>
-    public partial class PastReservations : UserControl
+    public partial class PastReservations : BaseFrameWithSearch<Reservation>
     {
-        private List<Reservation> items = new List<Reservation>();
+       
         private ReservationService reservationService = ServiceFactory.GetReservationService();
-        private AbortableBackgroundWorker worker = new AbortableBackgroundWorker();
 
         public PastReservations()
         {
             InitializeComponent();
-            searchBox.AddHandler(TextBox.TextChangedEvent, new TextChangedEventHandler(OnTextChanged));
-            Search("");
         }
 
-
-
-        private void OnTextChanged(object Sender, TextChangedEventArgs e)
+        protected override void BaseFrame_Loaded(object sender, RoutedEventArgs e)
         {
-            Search(searchBox.SearchTextBox.Text);
+            base.BaseFrame_Loaded(sender, e);
+            emptyListMessage.Text = "No reservations.";
+            GridView gridView = list.View as GridView;
+            gridView.Columns.Add(CreateColumn("FromDateString", "From"));
+            gridView.Columns.Add(CreateColumn("ToDateString", "To"));
+            gridView.Columns.Add(CreateColumn("RoomString", "Room"));
+            gridView.Columns.Add(CreateColumn("EndDateString", "Completed"));
+            gridView.Columns.Add(CreateColumn("Person", "Person"));
+            gridView.Columns.Add(CreateColumn("Contact", "Contact"));
+            gridView.Columns.Add(CreateColumn("CreationDateString", "Created"));
+            ReloadData("");
         }
 
-        private void Search(string query)
+        protected override void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            BeforeSearch();
-
-            // stop possible current running background worker
-            if (worker.IsBusy)
-            {
-                // don't update ui if aborted since the next worker will do that anyway.
-                worker.RunWorkerCompleted -= Worker_RunWorkerCompleted;
-
-                worker.Abort();
-                worker.Dispose();
-            }
-
-            worker = new AbortableBackgroundWorker();
-            worker.DoWork += Worker_DoWork;
-            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            worker.WorkerSupportsCancellation = true;
-            worker.RunWorkerAsync(query);
-        }
-
-        public void Refresh()
-        {
-            Search(searchBox.SearchTextBox.Text);
-        }
-
-        private void BeforeSearch()
-        {
-            circualProgessBar.Visibility = Visibility.Visible;
-            reservationList.Visibility = Visibility.Hidden;
-            noReservationsMessage.Visibility = Visibility.Hidden;
-        }
-
-        private void Worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            // simulate processing
-            Thread.Sleep(1000);
-
+            base.Worker_DoWork(sender, e);
             string query = (string)e.Argument;
             items = reservationService.FindPastReservation(query);
         }
 
-        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            circualProgessBar.Visibility = Visibility.Hidden;
-            reservationList.ItemsSource = items;
-            if (items.Count == 0)
-            {
-                noReservationsMessage.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                reservationList.Visibility = Visibility.Visible;
-            }
-
-            searchBox.Visibility = Visibility.Visible;
-        }
     }
 }

@@ -1,7 +1,5 @@
-﻿using HotelManager.Entity;
-using HotelManager.Gui.Dialog;
+﻿using HotelManager.Gui.Dialog;
 using HotelManager.Service;
-using HotelManager.Util;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -81,7 +79,6 @@ namespace HotelManager.Gui
                 {
                     text.Style = Resources["LeftSideMenuItems"] as Style;
                 }
-
             }
 
             // load the new view
@@ -92,8 +89,7 @@ namespace HotelManager.Gui
         }
 
         private void Main_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            
+        {    
             if (e.ChangedButton == MouseButton.Left)
                 if (e.ClickCount == 2)
                 {
@@ -162,7 +158,7 @@ namespace HotelManager.Gui
                 {
                     Rooms rooms = userControl as Rooms;
                     rooms.searchBox.Visibility = Visibility.Hidden;
-                    rooms.Refresh();
+                    rooms.ReloadData("");
                 }
             }
 

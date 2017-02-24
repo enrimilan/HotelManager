@@ -1,9 +1,6 @@
-﻿using HotelManager.Async;
-using HotelManager.Entity;
+﻿using HotelManager.Entity;
 using HotelManager.Service;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System;
@@ -15,37 +12,50 @@ namespace HotelManager.Gui
     /// <summary>
     /// Interaction logic for ReservationsForRoom.xaml
     /// </summary>
-    public partial class ReservationsForRoom : UserControl
+    public partial class ReservationsForRoom : BaseFrame<Reservation>
     {
 
         private Room room;
-        private List<Reservation> items = new List<Reservation>();
         private ReservationService reservationService = ServiceFactory.GetReservationService();
         private RoomService roomService = ServiceFactory.GetRoomService();
-        private AbortableBackgroundWorker worker = new AbortableBackgroundWorker();
 
         public ReservationsForRoom(Room room)
         {
             this.room = room;
             InitializeComponent();
             Title.Text = "Reservations for " + room.Number;
-            ReloadReservations();
+            
         }
 
-        private void HandlerForCMO(object sender, ContextMenuEventArgs e)
+        protected override void BaseFrame_Loaded(object sender, RoutedEventArgs e)
         {
-            if (reservationList.SelectedIndex == -1)
-            {
-                return;
-            }
-
-            FrameworkElement fe = e.Source as FrameworkElement;
-            fe.ContextMenu = BuildMenu(reservationList.SelectedIndex);
+            base.BaseFrame_Loaded(sender, e);
+            emptyListMessage.Text = "No reservations.";
+            GridView gridView = list.View as GridView;
+            gridView.Columns.Add(CreateColumn("FromDateString", "From"));
+            gridView.Columns.Add(CreateColumn("ToDateString", "To"));
+            gridView.Columns.Add(CreateColumn("Status", "Status"));
+            gridView.Columns.Add(CreateColumn("Person", "Person"));
+            gridView.Columns.Add(CreateColumn("Contact", "Contact"));
+            gridView.Columns.Add(CreateColumn("CreationDateString", "Created"));
+            ReloadData("");
         }
 
-        private ContextMenu BuildMenu(int index)
+        protected override void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            Reservation reservation = items[reservationList.SelectedIndex];
+            base.Worker_DoWork(sender, e);
+            items = reservationService.FindReservation(room);
+        }
+
+        protected override void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            base.Worker_RunWorkerCompleted(sender, e);
+            addReservationButton.Visibility = Visibility.Visible;
+        }
+
+        protected override ContextMenu BuildMenu(int index)
+        {
+            Reservation reservation = items[list.SelectedIndex];
             ContextMenu menu = new ContextMenu();
             if(index == 0 && !reservation.CheckedIn)
             {
@@ -74,11 +84,11 @@ namespace HotelManager.Gui
 
         private void Checkout_Click(object sender, RoutedEventArgs e)
         {
-            if (reservationList.SelectedIndex == -1)
+            if (list.SelectedIndex == -1)
             {
                 return;
             }
-            Reservation reservation = items[reservationList.SelectedIndex];
+            Reservation reservation = items[list.SelectedIndex];
             reservation.CheckedIn = false;
             reservation.Past = true;
             reservation.EndDateString = DateTime.Now.ToString(Constants.DateFormat);
@@ -87,84 +97,37 @@ namespace HotelManager.Gui
             room.Status = "Free";
             room.Reservations = room.Reservations - 1;
             roomService.Edit(room);
-            ReloadReservations();
+            ReloadData("");
         }
 
         private void Checkin_Click(object sender, RoutedEventArgs e)
         {
-            if (reservationList.SelectedIndex == -1)
+            if (list.SelectedIndex == -1)
             {
                 return;
             }
-            Reservation reservation = items[reservationList.SelectedIndex];
+            Reservation reservation = items[list.SelectedIndex];
             reservation.CheckedIn = true;
             reservation.Status = "Checked in";
             reservationService.Edit(reservation);
-            ReloadReservations();
+            ReloadData("");
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            if (reservationList.SelectedIndex == -1)
+            if (list.SelectedIndex == -1)
             {
                 return;
             }
 
-            Reservation reservation = items[reservationList.SelectedIndex];
+            Reservation reservation = items[list.SelectedIndex];
             reservation.Canceled = true;
             reservation.EndDateString = DateTime.Now.ToString(Constants.DateFormat);
             reservationService.Edit(reservation);
             room.Status = "Free";
             room.Reservations = room.Reservations - 1;
             roomService.Edit(room);
-            ReloadReservations();
-        }
-
-        private void ReloadReservations()
-        {
-            circualProgessBar.Visibility = Visibility.Visible;
-            reservationList.Visibility = Visibility.Hidden;
-            noReservationsMessage.Visibility = Visibility.Hidden;
-
-            // stop possible current running background worker
-            if (worker.IsBusy)
-            {
-                // don't update ui if aborted since the next worker will do that anyway.
-                worker.RunWorkerCompleted -= Worker_RunWorkerCompleted;
-
-                worker.Abort();
-                worker.Dispose();
-            }
-
-            worker = new AbortableBackgroundWorker();
-            worker.DoWork += Worker_DoWork;
-            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            worker.WorkerSupportsCancellation = true;
-            worker.RunWorkerAsync();
-        }
-
-        private void Worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            // simulate processing
-            Thread.Sleep(1000);
-
-            items = reservationService.FindReservation(room);
-        }
-
-        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            circualProgessBar.Visibility = Visibility.Hidden;
-            reservationList.ItemsSource = items;
-            if (items.Count == 0)
-            {
-                noReservationsMessage.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                reservationList.Visibility = Visibility.Visible;
-            }
-
-            addReservationButton.Visibility = Visibility.Visible;
+            ReloadData("");
         }
 
         private void AddReservationButton_Click(object sender, RoutedEventArgs e)
@@ -213,7 +176,7 @@ namespace HotelManager.Gui
                 room.Reservations = room.Reservations + 1;
                 roomService.Edit(room);
                 addReservationButton.Visibility = Visibility.Hidden;
-                ReloadReservations();
+                ReloadData("");
             }
         }
 

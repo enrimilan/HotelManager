@@ -77,6 +77,9 @@
     <Compile Include="Dao\RoomDao.cs" />
     <Compile Include="Entity\Reservation.cs" />
     <Compile Include="Entity\Room.cs" />
+    <Compile Include="Gui\BaseFrame.cs" />
+    <Compile Include="Gui\BaseFrameControl.cs" />
+    <Compile Include="Gui\BaseFrameWithSearch.cs" />
     <Compile Include="Gui\CanceledReservations.xaml.cs">
       <DependentUpon>CanceledReservations.xaml</DependentUpon>
     </Compile>
@@ -162,6 +165,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Gui\BaseFrameControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Gui\CanceledReservations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -210,7 +217,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Gui\Style\CircualProgressBar.xaml">
+    <Page Include="Gui\Style\CircularProgressBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
