@@ -110,6 +110,8 @@ namespace HotelManager.Gui
             reservation.CheckedIn = true;
             reservation.Status = "Checked in";
             reservationService.Edit(reservation);
+            room.Status = "Busy";
+            roomService.Edit(room);
             ReloadData("");
         }
 
