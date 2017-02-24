@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System;
 using System.Windows.Controls;
 using System.Diagnostics;
+using System.Windows;
+using HotelManager.Util;
+using HotelManager.Service;
 
 namespace HotelManager.Gui.Dialog
 {
@@ -15,6 +18,8 @@ namespace HotelManager.Gui.Dialog
         private List<CalendarDateRange> FromBlackoutDates = new List<CalendarDateRange>();
         private List<CalendarDateRange> ToBlackoutDates = new List<CalendarDateRange>();
         private List<Reservation> reservations = new List<Reservation>();
+        private ReservationService reservationService = ServiceFactory.GetReservationService();
+        private RoomService roomService = ServiceFactory.GetRoomService();
 
         public AddReservationDialog(List<Reservation> reservations)
         {
@@ -68,6 +73,47 @@ namespace HotelManager.Gui.Dialog
         {
             ToDatePicker.IsEnabled = true;
             Reset();
+        }
+
+        public bool CheckForErrorsAndProceed(Room room)
+        {
+            MessageDialog messageDialog = new MessageDialog();
+            messageDialog.Owner = Application.Current.MainWindow;
+
+            if (FromDatePicker.SelectedDate == null || ToDatePicker.SelectedDate == null)
+            {
+                messageDialog.Dialog_Title = "Error";
+                messageDialog.Message.Text = "Dates need to be selected!";
+                messageDialog.ShowDialog();
+                return false;
+            }
+            if (Person.Text.Equals(""))
+            {
+                messageDialog.Dialog_Title = "Error";
+                messageDialog.Message.Text = "Person name can't be empty!";
+                messageDialog.ShowDialog();
+                return false;
+            }
+            if (Contact.Text.Equals(""))
+            {
+                messageDialog.Dialog_Title = "Error";
+                messageDialog.Message.Text = "Person's contact can't be empty!";
+                messageDialog.ShowDialog();
+                return false ;
+            }
+
+            Reservation reservation = new Reservation();
+            reservation.Room = roomService.GetRoom(room.Id);
+            reservation.FromDateString = FromDatePicker.SelectedDate.Value.ToString(Constants.DateFormat);
+            reservation.ToDateString = ToDatePicker.SelectedDate.Value.ToString(Constants.DateFormat);
+            reservation.CreationDateString = DateTime.Now.ToString(Constants.DateFormat);
+            reservation.Person = Person.Text;
+            reservation.Contact = Contact.Text;
+            reservationService.Create(reservation);
+            room.Reservations = room.Reservations + 1;
+            roomService.Edit(room);
+
+            return true;
         }
 
     }

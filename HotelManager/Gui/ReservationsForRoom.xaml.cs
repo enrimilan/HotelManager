@@ -137,44 +137,8 @@ namespace HotelManager.Gui
             dialog.Owner = Application.Current.MainWindow;
             dialog.ShowDialog();
 
-            if(dialog.Create)
+            if(dialog.Create && dialog.CheckForErrorsAndProceed(room))
             {
-
-                MessageDialog messageDialog = new MessageDialog();
-                messageDialog.Owner = Application.Current.MainWindow;
-
-                if (dialog.FromDatePicker.SelectedDate == null || dialog.ToDatePicker.SelectedDate == null)
-                {
-                    messageDialog.Dialog_Title = "Error";
-                    messageDialog.Message.Text = "Dates need to be selected!";
-                    messageDialog.ShowDialog();
-                    return;
-                }
-                if (dialog.Person.Text.Equals(""))
-                {
-                    messageDialog.Dialog_Title = "Error";
-                    messageDialog.Message.Text = "Person name can't be empty!";
-                    messageDialog.ShowDialog();
-                    return;
-                }
-                if (dialog.Contact.Text.Equals(""))
-                {
-                    messageDialog.Dialog_Title = "Error";
-                    messageDialog.Message.Text = "Person's contact can't be empty!";
-                    messageDialog.ShowDialog();
-                    return;
-                }
-
-                Reservation reservation = new Reservation();
-                reservation.Room = roomService.GetRoom(room.Id);
-                reservation.FromDateString = dialog.FromDatePicker.SelectedDate.Value.ToString(Constants.DateFormat);
-                reservation.ToDateString = dialog.ToDatePicker.SelectedDate.Value.ToString(Constants.DateFormat);
-                reservation.CreationDateString = DateTime.Now.ToString(Constants.DateFormat);
-                reservation.Person = dialog.Person.Text;
-                reservation.Contact = dialog.Contact.Text;
-                reservationService.Create(reservation);
-                room.Reservations = room.Reservations + 1;
-                roomService.Edit(room);
                 addReservationButton.Visibility = Visibility.Hidden;
                 ReloadData("");
             }
