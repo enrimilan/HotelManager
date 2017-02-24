@@ -108,6 +108,7 @@ namespace HotelManager.Gui.Dialog
             reservation.CreationDateString = DateTime.Now.ToString(Constants.DateFormat);
             reservation.Person = Person.Text;
             reservation.Contact = Contact.Text;
+            reservation.Room = room;
             reservationService.Create(reservation);
             room.Reservations = room.Reservations + 1;
             roomService.Edit(room);
