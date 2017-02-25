@@ -46,15 +46,10 @@ namespace HotelManager.Gui
         {
             ContextMenu menu = new ContextMenu();
             Reservation reservation = items[list.SelectedIndex];
-
-            if(!reservation.CheckedIn)
-            {
-                MenuItem editReservations = new MenuItem();
-                editReservations.Header = "Edit reservations";
-                editReservations.Click += EditReservations_Click;
-                menu.Items.Add(editReservations);
-            }
-            
+            MenuItem editReservations = new MenuItem();
+            editReservations.Header = "Edit reservations for this room";
+            editReservations.Click += EditReservations_Click;
+            menu.Items.Add(editReservations);
             return menu;
         }
 
