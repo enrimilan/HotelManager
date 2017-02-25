@@ -126,7 +126,7 @@ namespace HotelManager.Gui
             reservation.Canceled = true;
             reservation.EndDateString = DateTime.Now.ToString(Constants.DateFormat);
             reservationService.Edit(reservation);
-            room.Status = "Free";
+            reservation.Status = "Canceled";
             room.Reservations = room.Reservations - 1;
             roomService.Edit(room);
             ReloadData("");
