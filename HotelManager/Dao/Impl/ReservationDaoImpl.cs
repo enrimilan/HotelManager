@@ -67,7 +67,7 @@ namespace HotelManager.Dao.Impl
         public List<Reservation> FindAll(Room room)
         {
             SQLiteCommand command = new SQLiteCommand(connection);
-            command.CommandText = $"SELECT * FROM {ReservationsTable} WHERE {CanceledCol}='False' AND {PastCol}='False' AND {RoomidCol}=@roomidVal";
+            command.CommandText = $"SELECT * FROM {ReservationsTable} WHERE {CanceledCol}='False' AND {PastCol}='False' AND {RoomidCol}=@roomidVal ORDER BY {FromDateCol};";
             command.Parameters.Add(new SQLiteParameter("@roomidVal", room.Id));
             DataTable dt = ExecuteSql(command);
             return ProcessReservationsResult(dt);
